@@ -8,6 +8,9 @@ st.write("This is our guessing game.")
 if st.button("Gamepage"):
     st.switch_page("Gamepage.py")
 
+if st.button("Statistics"):
+    st.switch_page("Statspage.py")
+
 
 gamepage= st.Page("Gamepage.py",title ="The Game Page")
 statspage=st.Page("Statspage.py",title="The Statistics")
