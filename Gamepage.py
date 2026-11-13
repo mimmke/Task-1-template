@@ -24,6 +24,9 @@ with st.form("Guess"):
                 st.error("This is not correct, guess again")
         else:
             st.write("Please guess a movie")
+with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center", vertical_alignment="bottom"):
+    if st.button("Game Statistics", type="primary"):
+        st.switch_page("Statspage.py")
 if st.button("Snow"):
     st.snow()
  
