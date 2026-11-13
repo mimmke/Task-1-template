@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 st.set_page_config(page_title= "Statspage")
 st.header("Your Statistics")
@@ -19,3 +20,11 @@ with st.container(width="stretch", height="content", horizontal=True, horizontal
         
 #st.bar_chart(data=None, x=Tries, y=list(range(15)) * 3, x_label=Tries, color=None, horizontal=False, sort=True, stack=None, width="stretch", height="content")
 
+data = {
+    "Tries": ["1 Try", "2 Tries", "3 Tries", "Failed"],
+    "Counts": [1, 3, 5, 2]    
+}
+
+df = pd.DataFrame(data).set_index("Tries")
+
+st.bar_chart(df)
