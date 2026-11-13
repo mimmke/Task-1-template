@@ -8,7 +8,7 @@ if "attempts" not in st.session_state:
     st.session_state.attempts=0
 if "final_score" not in st.session_state:
     st.session_state.final_score=[]
-with st.form("Guess"):
+with st.form("Guess", type="primary"):
     guess=st.text_input("What movie is this?")
     submitted = st.form_submit_button("Submit")
     if submitted:
