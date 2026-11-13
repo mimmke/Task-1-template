@@ -6,7 +6,7 @@ movie= "It"
 st.image("assets/Default Movie.png")
 if "attempts" not in st.session_state:
     st.session_state.attempts=0
-if "final_score" not in st.session.state:
+if "final_score" not in st.session_state:
     st.session_state.final_score=[]
 with st.form("Guess"):
     guess=st.text_input("What movie is this?")
