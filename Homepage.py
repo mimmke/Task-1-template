@@ -6,10 +6,10 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
     
     st.subheader("Welcome to our movie guessing game." ,text_alignment="center")
     
-    if st.button("Gamepage",type="primary"):
+    if st.button("Play",type="primary"):
             st.switch_page("Gamepage.py"),
             
-    if st.button("Statistics",type="primary"):
+    if st.button("Game Statistics",type="primary"):
             st.switch_page("Statspage.py")
             
 st.write(st.session_state.final_score)
