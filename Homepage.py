@@ -1,8 +1,5 @@
 import streamlit as st
 
-[theme]
-base="light"
-primaryColor="lavender"
 
 with st.container(width="stretch", height="content", horizontal_alignment="center"):
     st.header("Movie Time")
