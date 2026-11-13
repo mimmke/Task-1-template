@@ -1,5 +1,5 @@
 import streamlit as st
-st.set_page_config(page_title= "Gamepage")
+st.set_page_config(page_title= "Gamepage",page_icon="❄️")
 
 st.write( "Hier könnte ihre Werbung stehen")
 movie= "It"
@@ -26,3 +26,4 @@ with st.form("Guess"):
             st.write("Please guess a movie")
 if st.button("Snow"):
     st.snow()
+ 
