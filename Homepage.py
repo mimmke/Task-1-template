@@ -11,3 +11,5 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
             
     if st.button("Statistics",type="primary"):
             st.switch_page("Statspage.py")
+            
+st.write(st.session_state.final_score)
