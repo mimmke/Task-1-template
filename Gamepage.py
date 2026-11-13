@@ -3,4 +3,4 @@ st.set_page_config(page_title= "Gamepage")
 
 st.write( "Hier könnte ihre Werbung stehen")
 if st.button("Snow"):
-    st.snow
+    st.snow()
