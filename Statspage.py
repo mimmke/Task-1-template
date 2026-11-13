@@ -10,17 +10,9 @@ st.write( "Hier könnte ihre Werbung stehen")
 if st.button("Let it Snow!"):
     st.snow()
 
-df = pd.DataFrame(
-    {
-        "tries": list(range(20)) * 3,
-        "stats": list(range(20)) * 3
-        }
-)
 
 st.bar_chart(
-    df,
-    X= "stats",
-    y= "tries",
-    x_label= "Tries",
-    horizontal = False    
+    X= list(range(20)) * 3,
+    y= list(range(20)) * 3,
+    x_label= "Tries"  
 )
