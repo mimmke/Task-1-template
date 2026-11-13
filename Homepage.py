@@ -9,8 +9,8 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
     
     st.subheader("Welcome to our movie guessing game.")
     
-    if st.button("Gamepage",theme="primary"):
+    if st.button("Gamepage",type="primary"):
             st.switch_page("Gamepage.py"),
             
-    if st.button("Statistics",theme="primary"):
+    if st.button("Statistics",type="primary"):
             st.switch_page("Statspage.py")
