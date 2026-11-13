@@ -2,9 +2,9 @@ import streamlit as st
 
 
 with st.container(width="stretch", height="content", horizontal_alignment="center"):
-    st.header("Movie Time")
+    st.header("Movie Time" ,horizontal_alignment="center")
     
-    st.subheader("Welcome to our movie guessing game.")
+    st.subheader("Welcome to our movie guessing game." ,horizontal_alignment="center")
     
     if st.button("Gamepage",type="primary"):
             st.switch_page("Gamepage.py"),
