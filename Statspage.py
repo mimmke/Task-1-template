@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(page_title= "Statspage")
-st.header("Your Statistics")
+st.header("Your Game Statistics", text_alignment="center")
 
 data = {
     "Tries": ["1 Try", "2 Tries", "3 Tries", "Failed"],
@@ -10,7 +10,7 @@ data = {
 }
 
 df = pd.DataFrame(data).set_index("Tries")
-st.bar_chart(df, color="#FFD700")
+st.bar_chart(df, color="#DAA520")
 
 with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center", vertical_alignment="bottom"):
     if st.button("Play", type="primary"):
