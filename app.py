@@ -1,12 +1,12 @@
 import streamlit as st
 
-st.set_page_config(page_title= "Startpage")
+st.set_page_config(page_title= "Homepage")
 st.title("Hello world")
 
 st.write("This is our guessing game.")
 
-if st.button("IDK"):
-    st.balloons()
+if st.button("Gamepage"):
+    st.switch_page("Gamepage.py")
 
 
 gamepage= st.Page("Gamepage.py",title ="The Game Page")
