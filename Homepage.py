@@ -1,12 +1,16 @@
 import streamlit as st
 
-with st.container(width="stretch", height="content", horizontal=True, horizontal_alignment="center"):
+[theme]
+base="light"
+primaryColor="lavender"
+
+with st.container(width="stretch", height="content", horizontal_alignment="center"):
     st.header("Movie Time")
     
     st.subheader("Welcome to our movie guessing game.")
     
-    if st.button("Gamepage"):
+    if st.button("Gamepage",theme="primary"):
             st.switch_page("Gamepage.py"),
             
-    if st.button("Statistics"):
+    if st.button("Statistics",theme="primary"):
             st.switch_page("Statspage.py")
