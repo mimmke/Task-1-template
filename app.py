@@ -6,10 +6,10 @@ st.title("Hello world")
 st.write("This is our guessing game.")
 
 if st.button("Gamepage"):
-    st.switch_page("Gamepage.py")
+    st.switch_page("pages/Gamepage.py")
 
 if st.button("Statistics"):
-    st.switch_page("Statspage.py")
+    st.switch_page("pages/statspage")
 
 
 gamepage= st.Page("Gamepage.py",title ="The Game Page")
