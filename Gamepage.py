@@ -19,7 +19,7 @@ with st.form("Guess"):
                 st.snow()
                 st.session_state.final_score.append(st.session_state.attempts)
                 st.write(st.session_state.final_score)
-                
+                st.session_state.attempts=0
             else:
                 st.error("This is not correct, guess again")
         else:
