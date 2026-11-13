@@ -12,5 +12,5 @@ st.button("Hallo")
 
 gamepage= st.Page("Gamepage.py",title ="The Game Page")
 statspage=st.Page("Statspage.py",title="The Statistics")
-st.navigation(pages=([Gamepage,statspage]))
+st.navigation(pages=([gamepage,statspage]))
 
