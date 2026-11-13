@@ -8,5 +8,5 @@ if st.button("Let it Snow!"):
 
 
 with st.container(width="stretch", height="content", horizontal=True, horizontal_alignment="center", vertical_alignment="bottom"):
-    if st.button("Play"):
+    if st.button("Play", type="primary"):
         st.switch_page("Gamepage.py")
