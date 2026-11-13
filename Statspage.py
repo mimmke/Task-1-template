@@ -12,7 +12,7 @@ if st.button("Let it Snow!"):
 
 
 st.bar_chart(
-    X= list(range(20)) * 3,
-    y= list(range(20)) * 3,
-    x_label= "Tries"  
+    x=list(range(20)) * 3,
+    y=list(range(20)) * 3,
+    x_label="Tries"  
 )
