@@ -1,6 +1,6 @@
 import streamlit as st
 
-set_page_config(page_title= "Startpage")
+st.set_page_config(page_title= "Startpage")
 st.title("Hello world")
 
 st.write("This is our guessing game.")
