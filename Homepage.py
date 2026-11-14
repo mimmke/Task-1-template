@@ -6,6 +6,8 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
     
     st.subheader("Welcome to our movie guessing game." ,text_alignment="center")
     
+    st.space(size="medium")
+    
     if st.button("Play",type="primary"):
             st.switch_page("Gamepage.py"),
             
