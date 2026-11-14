@@ -11,7 +11,7 @@ data = {
 #dt = pd.DataFrame(data).set_index("Tries")
 
 df = pd.DataFrame(data)
-st.bar_chart(df, x="Tries", y="Counts", color="#DAA520")
+st.bar_chart(df, x="Tries", y="Counts", x_label=" ", color="#DAA520")
 
 with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center", vertical_alignment="bottom"):
     if st.button("Play", type="primary"):
