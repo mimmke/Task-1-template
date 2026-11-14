@@ -1,8 +1,16 @@
 import streamlit as st
+import pandas as pd
 st.set_page_config(page_title= "Gamepage",page_icon="❄️")
 
+
+@st.cache_data
+def load_movie_data():
+    return pd.read_csv("assets/Movies_to_Emojis.csv")
+movies=load_movie_data()
+
 st.write( "Hier könnte ihre Werbung stehen")
-movie= "It"
+movie= movie.loc[0,"Movies"]
+st.write("First Movie Dataset: {movie}")
 st.image("assets/Default Movie.png")
 if "attempts" not in st.session_state:
     st.session_state.attempts=0
