@@ -3,12 +3,12 @@ import pandas as pd
 
 st.set_page_config(page_title= "Statspage")
 st.header("Your Game Statistics", text_alignment="center")
+st.space(size="medium")
 
 data = {
     "Tries": ["1 Try", "2 Tries", "3 Tries", "Failed"],
     "Counts": [1, 3, 5, 2]    
 }
-#dt = pd.DataFrame(data).set_index("Tries")
 
 df = pd.DataFrame(data)
 st.bar_chart(df, x="Tries", y="Counts", x_label=" ", color="#DAA520")
