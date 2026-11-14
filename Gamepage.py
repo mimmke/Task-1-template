@@ -10,7 +10,7 @@ movies=load_movie_data()
 
 st.write( "Hier könnte ihre Werbung stehen")
 movie= movies.loc[0,"Movies"]
-st.write("First Movie Dataset: {movie}")
+st.write(f"First Movie Dataset: {movie}")
 st.image("assets/Default Movie.png")
 if "attempts" not in st.session_state:
     st.session_state.attempts=0
