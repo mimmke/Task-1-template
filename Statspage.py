@@ -16,6 +16,11 @@ st.bar_chart(df, x="Tries", y="Counts", x_label=" ", color="#DAA520")
 with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center", vertical_alignment="bottom"):
     if st.button("Play", type="primary"):
         st.switch_page("Gamepage.py")
+        
+st.write("You have guessed ... movies.")
+st.write("You have failed to guess ... movies.")
+st.space(size="small")
+st.write("Your average amount of guesses per movie is ...")
 
 if st.button("Let it Snow!"):
     st.snow()
