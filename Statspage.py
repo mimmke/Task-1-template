@@ -8,6 +8,7 @@ data = {
     "Tries": ["1 Try", "2 Tries", "3 Tries", "Failed"],
     "Counts": [1, 3, 5, 2]    
 }
+#dt = pd.DataFrame(data).set_index("Tries")
 
 df = pd.DataFrame(data)
 st.bar_chart(df, x="Tries", y="Counts", color="#DAA520")
