@@ -46,7 +46,9 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
         else:
             st.write(f"You have failed to guess {st.session_state.final_score[3]} movies.")
         st.space(size="small")
-        st.write(f"Your average amount of guesses per movie is ...")
+        if guessed_movies > 0:
+            average_guesses = (1 * st.session_state.final_score[0] + 2 * st.session_state.final_score[1] + 3 * st.session_state.final_score[2]) / guessed_movies
+            st.write(f"Your average amount of guesses per guessed movie is {average_guesses}.")
 
         if st.button("Let it Snow!"):
             st.snow()
