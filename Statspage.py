@@ -7,11 +7,11 @@ st.space(size="medium")
 
 data = {
     "Tries": ["1 Try", "2 Tries", "3 Tries", "Failed"],
-    st.session_state.final_score = [0,0,0,0]
+    "final_score": [0,0,0,0]
 }
 
 df = pd.DataFrame(data)
-st.bar_chart(df, x="Tries", y="Counts", x_label=" ", color="#DAA520")
+st.bar_chart(df, x="Tries", y="final_score", x_label=" ", color="#DAA520")
 
 with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center", vertical_alignment="bottom"):
     if st.button("Play", type="primary"):
