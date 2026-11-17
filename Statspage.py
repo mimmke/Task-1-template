@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 
+if "final_score" not in st.session_state:
+    st.session_state.final_score=[0,0,0,0]
+    
 st.set_page_config(page_title= "Statspage")
 st.header("Your Game Statistics", text_alignment="center")
 st.space(size="medium")
