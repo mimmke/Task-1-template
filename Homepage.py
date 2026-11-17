@@ -15,4 +15,3 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
             st.switch_page("Statspage.py")
 if "final_score" not in st.session_state:
     st.session_state.final_score=[]            
-st.write(st.session_state.final_score)
