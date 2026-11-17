@@ -16,7 +16,7 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
         
         if st.button("Press here to play.", type="primary"):
             st.switch_page("Gamepage.py")
-    else:   
+    elif st.session_state.final_score == [0,0,0,0]:   
         data = {
                     "Tries": ["1 Try", "2 Tries", "3 Tries", "Failed"],
                     "final_score": [st.session_state.final_score]  
