@@ -5,17 +5,17 @@ st.set_page_config(page_title= "Statspage")
 st.header("Your Game Statistics", text_alignment="center")
 st.space(size="medium")
 
+data = {
+            "Tries": ["1 Try", "2 Tries", "3 Tries", "Failed"],
+            "Score": [st.session_state.final_score[0],st.session_state.final_score[1],st.session_state.final_score[2],st.session_state.final_score[3]]
+        }
+
 with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center"):
     if st.session_state.final_score==[0,0,0,0]:
         st.subheader("You have not yet played a round." ,text_alignment="center")
         if st.button("Press here to play.", type="primary"):
             st.switch_page("Gamepage.py")
     else:
-        data = {
-            "Tries": ["1 Try", "2 Tries", "3 Tries", "Failed"],
-            "Score": [st.session_state.final_score[0],st.session_state.final_score[1],st.session_state.final_score[2],st.session_state.final_score[3]]
-        }
-
         df = pd.DataFrame(data)
         st.bar_chart(df, x="Tries", y="Score", x_label=" ",y_label=" ", color="#DAA520")
 
