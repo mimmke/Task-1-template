@@ -30,7 +30,11 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
                 st.switch_page("Gamepage.py")
 
         rounds = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2] + st.session_state.final_score[3]
-        st.write(f"You have played {rounds} rounds.")      
+        if rounds == 1:
+            st.subheader("You have played one round.")
+        else:
+            st.subheader(f"You have played {rounds} rounds.")  
+                
         guessed_movies = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2]
         if guessed_movies == 1:
             st.write(f"You have rightly guessed one movie.")
@@ -45,10 +49,10 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
             st.write(f"You have not yet failed to guess a movie.")
         else:
             st.write(f"You have failed to guess {st.session_state.final_score[3]} movies.")
-        st.space(size="small")
+        st.space(size="xsmall")
         if guessed_movies > 0:
             average_guesses = (1 * st.session_state.final_score[0] + 2 * st.session_state.final_score[1] + 3 * st.session_state.final_score[2]) / guessed_movies
             st.write(f"Your average amount of guesses per guessed movie is {average_guesses}.")
-
+        st.space(size="small")
         if st.button("Let it Snow!"):
             st.snow()
