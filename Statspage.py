@@ -7,7 +7,7 @@ st.space(size="medium")
 
 data = {
     "Tries": ["1 Try", "2 Tries", "3 Tries", "Failed"],
-    "Counts": [1, 3, 5, 2]    
+    "Counts": st.session_state.final_score    
 }
 
 df = pd.DataFrame(data)
