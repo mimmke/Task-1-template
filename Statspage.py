@@ -12,7 +12,7 @@ with st.container(width="stretch", height="stretch", horizontal=True, horizontal
     if st.session_state.final_score == []:
         st.subheader("You have not yet played a round." ,text_alignment="center")
         st.space(size="medium")
-        with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center"):
+        with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center", vertical_alignment="bottom"):
             if st.button("Press here to play.", type="primary"):
                 st.switch_page("Gamepage.py")
     else:   
