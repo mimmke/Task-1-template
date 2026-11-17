@@ -8,11 +8,6 @@ st.set_page_config(page_title= "Statspage")
 st.header("Your Game Statistics", text_alignment="center")
 st.space(size="medium")
 
-data = {
-            "Tries": ["1 Try", "2 Tries", "3 Tries", "Failed"],
-            "final_score": [st.session_state.final_score[0],st.session_state.final_score[1],st.session_state.final_score[2],st.session_state.final_score[3]]
-        }
-
 with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center"):
     if st.session_state.final_score == []:
         st.subheader("You have not yet played a round." ,text_alignment="center")
