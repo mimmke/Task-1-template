@@ -52,7 +52,7 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
         st.space(size="xsmall")
         if guessed_movies > 0:
             average_guesses = (1 * st.session_state.final_score[0] + 2 * st.session_state.final_score[1] + 3 * st.session_state.final_score[2]) / guessed_movies
-            st.write(f"Your average amount of guesses per guessed movie is {average_guesses}.")
+            st.write(f"Your average amount of guesses per guessed movie is {average_guesses}")
         st.space(size="small")
         if st.button("Let it Snow!"):
             st.snow()
