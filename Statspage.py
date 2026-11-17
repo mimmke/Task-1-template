@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 
+if "final_score" not in st.session_state:
+    st.session_state.final_score=[] 
+
 st.set_page_config(page_title= "Statspage")
 st.header("Your Game Statistics", text_alignment="center")
 st.space(size="medium")
@@ -23,7 +26,7 @@ with st.container(width="stretch", height="stretch", horizontal=True, horizontal
     if st.button("Play", type="primary"):
         st.switch_page("Gamepage.py")
 
-#rounds = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2] + st.session_state.final_score[3]
+rounds = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2] + st.session_state.final_score[3]
 st.write(f"You have played {rounds} rounds.")      
 guessed_movies = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2]
 if guessed_movies == 1:
