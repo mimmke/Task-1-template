@@ -10,37 +10,37 @@ data = {
             "Score": [st.session_state.final_score[0],st.session_state.final_score[1],st.session_state.final_score[2],st.session_state.final_score[3]]
         }
 
-with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center"):
-    if st.session_state.final_score==[0,0,0,0]:
-        st.subheader("You have not yet played a round." ,text_alignment="center")
-        if st.button("Press here to play.", type="primary"):
-            st.switch_page("Gamepage.py")
-    else:
-        df = pd.DataFrame(data)
-        st.bar_chart(df, x="Tries", y="Score", x_label=" ",y_label=" ", color="#DAA520")
+#with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center"):
+    #if st.session_state.final_score==[0,0,0,0]:
+        #st.subheader("You have not yet played a round." ,text_alignment="center")
+        #if st.button("Press here to play.", type="primary"):
+            #st.switch_page("Gamepage.py")
+    #else:
+df = pd.DataFrame(data)
+st.bar_chart(df, x="Tries", y="Score", x_label=" ",y_label=" ", color="#DAA520")
 
-        with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center", vertical_alignment="bottom"):
-            if st.button("Play", type="primary"):
-                st.switch_page("Gamepage.py")
+with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center", vertical_alignment="bottom"):
+    if st.button("Play", type="primary"):
+        st.switch_page("Gamepage.py")
 
-        rounds = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2] + st.session_state.final_score[3]
-        st.write(f"You have played {rounds} rounds.")      
-        guessed_movies = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2]
-        if guessed_movies == 1:
-            st.write(f"You have rightly guessed one movie.")
-        elif guessed_movies == 0:
-            st.write(f"You have not yet guessed any movie right.")
-        else:
-            st.write(f"You have rightly guessed {guessed_movies} movies.")
+rounds = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2] + st.session_state.final_score[3]
+st.write(f"You have played {rounds} rounds.")      
+guessed_movies = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2]
+if guessed_movies == 1:
+    st.write(f"You have rightly guessed one movie.")
+elif guessed_movies == 0:
+    st.write(f"You have not yet guessed any movie right.")
+else:
+    st.write(f"You have rightly guessed {guessed_movies} movies.")
             
-        if st.session_state.final_score[3]==1:
-            st.write(f"You have failed to guess one movie.")
-        elif st.session_state.final_score[3]==0:
-            st.write(f"You have not yet failed to guess a movie.")
-        else:
-            st.write(f"You have failed to guess {st.session_state.final_score[3]} movies.")
-        st.space(size="small")
-        st.write(f"Your average amount of guesses per movie is ...")
+if st.session_state.final_score[3]==1:
+    st.write(f"You have failed to guess one movie.")
+elif st.session_state.final_score[3]==0:
+    st.write(f"You have not yet failed to guess a movie.")
+else:
+    st.write(f"You have failed to guess {st.session_state.final_score[3]} movies.")
+st.space(size="small")
+st.write(f"Your average amount of guesses per movie is ...")
 
-        if st.button("Let it Snow!"):
-            st.snow()
+if st.button("Let it Snow!"):
+    st.snow()
