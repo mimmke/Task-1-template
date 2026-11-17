@@ -17,8 +17,10 @@ with st.container(width="stretch", height="stretch", horizontal=True, horizontal
     if st.button("Play", type="primary"):
         st.switch_page("Gamepage.py")
         
+guessed_movies = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2]
+st.write(guessed_movies)       
 st.write(f"You have guessed {st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2]} movies.")
-st.write(f"You have failed to guess ... movies.")
+st.write(f"You have failed to guess {st.session_state.final_score[3]} movies.")
 st.space(size="small")
 st.write(f"Your average amount of guesses per movie is ...")
 
