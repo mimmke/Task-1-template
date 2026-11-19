@@ -34,13 +34,13 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
         #with rounds we show how many rounds of the game the player has played in this session state
         rounds = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2] + st.session_state.final_score[3] + st.session_state.final_score[4] + st.session_state.final_score[5]
         if rounds == 1:
-            st.subheader("You have played one round.")
+            st.subheader("You have played :green[one] round",divider="grey",text_alignment="center")
         else:
-            st.subheader(f"You have played {rounds} rounds.")  
+            st.subheader(f"You have played :green[{rounds}] rounds",divider="grey", text_alignment="center")  
         
-        #next we compute the amount of correctly guessed movies and the average amount of guesses per movie the player needed to guess correctly            
+        #next we compute the amount of correctly guessed movies and the average amount of guesses per movie            
         guessed_movies = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2] + st.session_state.final_score[3] + st.session_state.final_score[4]
-        average_guesses = (1 * st.session_state.final_score[0] + 2 * st.session_state.final_score[1] + 3 * st.session_state.final_score[2] + 4 * st.session_state.final_score[3] + 5 * st.session_state.final_score[4]) / guessed_movies
+        average_guesses = (1 * st.session_state.final_score[0] + 2 * st.session_state.final_score[1] + 3 * st.session_state.final_score[2] + 4 * st.session_state.final_score[3] + 5 * st.session_state.final_score[4]+ 6 * st.session_state.final_score[5]) / rounds
         
         st.space(size="small")
         
@@ -56,24 +56,24 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
         
         #amount of rightly guessed movies and failed to guess movies
         if guessed_movies == 1:
-            st.write(f"You have rightly guessed one movie.")
+            st.markdown(f"You have rightly guessed :green[one] movie.",unsafe_allow_html=True, text_alignment="center")
         elif guessed_movies == 0:
-            st.write(f"You have not yet guessed any movie right.")
+            st.markdown(f":red[You have not yet guessed any movie right.]",unsafe_allow_html=True, text_alignment="center")
         else:
-            st.write(f"You have rightly guessed {guessed_movies} movies.")
+            st.markdown(f"You have rightly guessed :green[{guessed_movies}] movies.",unsafe_allow_html=True, text_alignment="center")
                     
         if st.session_state.final_score[5]==1:
-            st.write(f"You have failed to guess one movie.")
+            st.markdown(f"You have failed to guess :red[one] movie.",unsafe_allow_html=True, text_alignment="center")
         elif st.session_state.final_score[5]==0:
-            st.write(f"You have not yet failed to guess a movie.")
+            st.markdown(f":green[You have not yet failed to guess a movie.]",unsafe_allow_html=True, text_alignment="center")
         else:
-            st.write(f"You have failed to guess {st.session_state.final_score[5]} movies.")
+            st.markdown(f"You have failed to guess :red[{st.session_state.final_score[5]}] movies.",unsafe_allow_html=True, text_alignment="center")
             
         st.space(size="xsmall")
         
-        #average amount of guesses needed to guess the right movie title
+        #average amount of guesses per movie
         if guessed_movies > 0:
-            st.write(f"Your average amount of guesses per guessed movie is {average_guesses}")
+            st.markdown(f"Your average amount of guesses per movie is :green[{average_guesses}]",unsafe_allow_html=True, text_alignment="center")
             
         st.space(size="small")
         
