@@ -13,11 +13,9 @@ with st.sidebar:
 if not api_key:
     st.info("Please enter your UOS API Key")
     st.stop()
+if "api_key" not in st.session_state():
+    st.session_state.api_key=api_key
 
-client = OpenAI(
-    base_url="https://litellm.uni-osnabrueck.de/v1",
-    api_key=api_key,
-)
 
 
 homepage= st.Page("Homepage.py", title = "Homepage", default=True)

@@ -16,12 +16,12 @@ with st.sidebar:
 if not api_key:
     st.info("Please enter your UOS API Key")
     st.stop()
-
+"""
 client = OpenAI(
     base_url="https://litellm.uni-osnabrueck.de/v1",
     api_key=api_key,
 )
-"""
+
 @st.cache_data
 def load_movie_data():
     return pd.read_csv("assets/Movies_to_Emojis.csv")
