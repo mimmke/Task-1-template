@@ -68,8 +68,6 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
             st.markdown(f":green[You have not yet failed to guess a movie.]",unsafe_allow_html=True, text_alignment="center")
         else:
             st.markdown(f"You have failed to guess :red[{st.session_state.final_score[5]}] movies.",unsafe_allow_html=True, text_alignment="center")
-            
-        st.space(size="xsmall")
         
         #average amount of guesses per movie
         if guessed_movies > 0:
@@ -81,9 +79,4 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
         with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center", vertical_alignment="bottom"):
             if st.button("Play", type="primary"):
                 st.switch_page("Gamepage.py")
-                
-        st.space(size="small")
-        
-        if st.button("Let it Snow!"):
-            st.snow()
             
