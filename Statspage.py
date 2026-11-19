@@ -1,15 +1,18 @@
 import streamlit as st
 import pandas as pd
 
+#initialising "final_score" with 6 elements
 if "final_score" not in st.session_state:
     st.session_state.final_score=[0,0,0,0,0,0]
-    
+
+#configering the page and giving it a header with its title    
 st.set_page_config(page_title= "Statspage")
 st.header("Your Game Statistics", text_alignment="center")
 
 st.space(size="medium")
 
 with st.container(width="stretch", height="content", horizontal_alignment="center"):
+    #setting up a pageview that appears when no game has been played yet, that sends you to the playpage to start a game
     if sum(st.session_state.final_score) == 0:
         st.subheader("You have not yet played a round." ,text_alignment="center")
         
@@ -17,26 +20,31 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
         
         if st.button("Press here to play.", type="primary"):
             st.switch_page("Gamepage.py")
-    else:   
+    else: 
+        #if at least one game has been played, a data frame will be configered including the st.session_state.final_score for the different amounts of guesses
         data = {
                     "Guesses": ["1 Guess", "2 Guesses", "3 Guesses", "4 Guesses", "5 Guesses", "Failed"],
                     "final_score": [st.session_state.final_score[0], st.session_state.final_score[1], st.session_state.final_score[2], st.session_state.final_score[3], st.session_state.final_score[4], st.session_state.final_score[5]]
         }
 
         df = pd.DataFrame(data)
+        #the bar chart shows how often the player needed an amount of guesses from 1 to 5 guesses per movie and how many movies the player failed to guess
         st.bar_chart(df, x="Guesses", y="final_score", x_label=" ",y_label=" ", color="#DAA520")
 
+        #with rounds we show how many rounds of the game the player has played in this session state
         rounds = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2] + st.session_state.final_score[3] + st.session_state.final_score[4] + st.session_state.final_score[5]
         if rounds == 1:
             st.subheader("You have played one round.")
         else:
             st.subheader(f"You have played {rounds} rounds.")  
-                     
+        
+        #next we compute the amount of correctly guessed movies and the average amount of guesses per movie the player needed to guess correctly            
         guessed_movies = st.session_state.final_score[0] + st.session_state.final_score[1] + st.session_state.final_score[2] + st.session_state.final_score[3] + st.session_state.final_score[4]
         average_guesses = (1 * st.session_state.final_score[0] + 2 * st.session_state.final_score[1] + 3 * st.session_state.final_score[2] + 4 * st.session_state.final_score[3] + 5 * st.session_state.final_score[4]) / guessed_movies
         
         st.space(size="small")
         
+        #with the average amount of guesses we categorize the player by their guissing quality into one of three ranks 
         if average_guesses <= 1.66:
             st.success('You have reached HUMAN NETFLIX level 🎬', icon="🥇")
         elif average_guesses <= 3.22:
@@ -46,6 +54,7 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
         
         st.space(size="small")
         
+        #amount of rightly guessed movies and failed to guess movies
         if guessed_movies == 1:
             st.write(f"You have rightly guessed one movie.")
         elif guessed_movies == 0:
@@ -62,11 +71,13 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
             
         st.space(size="xsmall")
         
+        #average amount of guesses needed to guess the right movie title
         if guessed_movies > 0:
             st.write(f"Your average amount of guesses per guessed movie is {average_guesses}")
             
         st.space(size="small")
         
+        #button to get back to the playpage
         with st.container(width="stretch", height="stretch", horizontal=True, horizontal_alignment="center", vertical_alignment="bottom"):
             if st.button("Play", type="primary"):
                 st.switch_page("Gamepage.py")
