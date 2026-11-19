@@ -43,8 +43,7 @@ if "trial_and_error" not in st.session_state:
 movie= movies.loc[st.session_state.current_movie,"Movies"]
 emoji= movies.loc[st.session_state.current_movie,"Emojis"]
 emoji_space=st.empty()
-st.write(f"trial and error {st.session_state["trial_and_error"]}")
-user_guess=st.chat_input("Guess a movie")
+
 
 system_prompt="""You are a witty gamemaster. Evaluate the user input by comparing it to a given movie and the current emojis. Your answer must be a valid JSON object with several different values. “Message” should contain a witty answer where you evaluate the guessers answer by evaluating whether the current emojis could also be used for the user input movie. Also compare the genres of the user guess and the movie to be guessed. Please also take into account if the movie the user guessed is in the same franchise and adjust your message accordingly. Provide a nice, witty and funny message taking all this into account, without providing too much detailed help.Never give away the movie title and do not talk about the plot at all. The next value in the dictionary should be “increase_attempts”  which you fill with 0 if the movie that was guessed is a movie of the same franchise or fill with 1 if not. Lastly the dictionary should contain a value “is_exact_match” which should be true if the guessed movie and the movie to be guessed are the same, otherwise false. Please ignore any spelling mistakes in the guess and ignore when the user forgets additional words in the title that follow after a : or - .Never give away the right movie title. Output ONLY raw JSON. Do not include markdown formatting, backticks, or any introductory text. your response should look something like this: {"Message": "...", "increase_attempts": 1, "is_exact_match": false})"""
 with st.form("Guess",clear_on_submit=True):
@@ -92,7 +91,7 @@ with st.form("Guess",clear_on_submit=True):
                             model="google/gemma-4-E4B-it",
                             messages= [
                                 {"role":"system","content":system_prompt},
-                                {"role":"user","content":f"movie to be guessed: {movie} user guess: {guess}"}
+                                {"role":"user","content":f"movie to be guessed: {movie} user guess: {guess} current emojis:{emoji} curent number of attempts: {st.session_state.attempts} "}
                                             ]
                         )
                     result=json.loads(response.choices[0].message.content)
