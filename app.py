@@ -1,7 +1,7 @@
 import streamlit as st
 
-st.set_page_config(page_title= "Homepage")
-
+#configuring the entrypoint file and defining the three available pages of our game
+st.set_page_config(page_title= "Homepage",page_icon="🎬")
 
 
 homepage= st.Page("Homepage.py", title = "Homepage", default=True)
