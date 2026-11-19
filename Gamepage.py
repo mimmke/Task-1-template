@@ -19,7 +19,7 @@ if not api_key:
 """
 client = OpenAI(
     base_url="https://litellm.uni-osnabrueck.de/v1",
-    api_key=api_key,
+    api_key=st.session_state.api_key,
 )
 
 @st.cache_data
