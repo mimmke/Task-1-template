@@ -1,7 +1,23 @@
 import streamlit as st
-
+from openai import OpenAI, AuthenticationError, OpenAIError
 #configuring the entrypoint file and defining the three available pages of our game
 st.set_page_config(page_title= "Homepage",page_icon="🎬")
+
+with st.sidebar:
+    api_key=st.text_input(
+        "UOS AI API-Key",
+        type="password",
+        key="uos_api_key",
+        placeholder="sk-..."
+    ).strip()
+if not api_key:
+    st.info("Please enter your UOS API Key")
+    st.stop()
+
+client = OpenAI(
+    base_url="https://litellm.uni-osnabrueck.de/v1",
+    api_key=api_key,
+)
 
 
 homepage= st.Page("Homepage.py", title = "Homepage", default=True)

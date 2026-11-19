@@ -5,7 +5,7 @@ import time
 from openai import OpenAI, AuthenticationError, OpenAIError
 import json
 st.set_page_config(page_title= "Gamepage",page_icon="🎲")
-
+"""
 with st.sidebar:
     api_key=st.text_input(
         "UOS AI API-Key",
@@ -21,6 +21,7 @@ client = OpenAI(
     base_url="https://litellm.uni-osnabrueck.de/v1",
     api_key=api_key,
 )
+"""
 @st.cache_data
 def load_movie_data():
     return pd.read_csv("assets/Movies_to_Emojis.csv")
