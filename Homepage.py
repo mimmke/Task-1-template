@@ -17,4 +17,4 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
 
 #initialising "final_score" in new session state
 if "final_score" not in st.session_state:
-    st.session_state.final_score=[]            
+    st.session_state.final_score=[0,0,0,0,0,0]            

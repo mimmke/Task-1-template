@@ -5,21 +5,24 @@ import time
 from openai import OpenAI, AuthenticationError, OpenAIError
 import json
 st.set_page_config(page_title= "Gamepage",page_icon="🎲")
-"""
-with st.sidebar:
-    api_key=st.text_input(
-        "UOS AI API-Key",
-        type="password",
-        key="uos_api_key",
-        placeholder="sk-..."
-    ).strip()
-if not api_key:
-    st.info("Please enter your UOS API Key")
-    st.stop()
-"""
+
+if "user_key" not in st.session_state:
+    with st.sidebar:
+        gamepage_api_key=st.text_input(
+            "UOS AI API-Key",
+            type="password",
+            key="gamepage_uos_api_key",
+            placeholder="sk-..."
+            ).strip()
+    if not gamepage_api_key:
+        st.info("Please enter your UOS API Key")
+        st.stop()
+    else:
+        st.session_state.user_key=gamepage_api_key
+
 client = OpenAI(
     base_url="https://litellm.uni-osnabrueck.de/v1",
-    api_key=st.session_state.api_key,
+    api_key=st.session_state.user_key,
 )
 
 @st.cache_data
@@ -81,17 +84,7 @@ with st.form("Guess",clear_on_submit=True):
                     st.error("API was not accepted, please check it!")
                 except OpenAIError:
                     st.error("API AI request has failed, please checkt it and try again!")
-                """
-                if guess.lower()==movie.lower():
-                    st.success("You guessed correctly!")
-                    st.snow()
-                    st.session_state.final_score[st.session_state.attempts-1]+=1
-                    st.write(st.session_state.final_score)
-                    st.session_state.attempts=0
-                    st.session_state.current_movie=random.randint(1,30)
-                else:
-                    st.error("This is not correct. Guess again!")
-            """
+                
             elif st.session_state.attempts==5:
                 try:
                     with st.spinner("Your guess is being evaluated..."):

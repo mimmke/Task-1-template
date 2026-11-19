@@ -10,11 +10,14 @@ with st.sidebar:
         key="uos_api_key",
         placeholder="sk-..."
     ).strip()
-if not api_key:
-    st.info("Please enter your UOS API Key")
-    st.stop()
-if "api_key" not in st.session_state:
-    st.session_state.api_key=api_key
+
+
+if "user_key" not in st.session_state:
+    if not api_key:
+        st.info("Please enter your UOS API Key")
+        st.stop()
+    else:
+        st.session_state.user_key=api_key
 
 
 
