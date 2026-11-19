@@ -45,9 +45,9 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
         st.space(size="small")
         
         #with the average amount of guesses we categorize the player by their guissing quality into one of three ranks 
-        if average_guesses <= 1.66:
+        if average_guesses <= 2.0:
             st.success('You have reached HUMAN NETFLIX level 🎬', icon="🥇")
-        elif average_guesses <= 3.22:
+        elif average_guesses <= 4.0:
             st.warning('You are a POPCORN ADDICT 🍿', icon="🥈")
         else:
             st.error('You seem to be a CASUAL VIEWER 📺', icon="🥉")
