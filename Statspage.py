@@ -71,7 +71,7 @@ with st.container(width="stretch", height="content", horizontal_alignment="cente
         
         #average amount of guesses per movie
         if guessed_movies > 0:
-            st.markdown(f"Your average amount of guesses per movie is :green[{average_guesses}]",unsafe_allow_html=True, text_alignment="center")
+            st.markdown(f"Your average amount of guesses per movie is :green[{average_guesses:.2f}]",unsafe_allow_html=True, text_alignment="center")
             
         st.space(size="small")
         
