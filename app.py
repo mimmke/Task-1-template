@@ -13,7 +13,7 @@ with st.sidebar:
 if not api_key:
     st.info("Please enter your UOS API Key")
     st.stop()
-if "api_key" not in st.session_state():
+if "api_key" not in st.session_state:
     st.session_state.api_key=api_key
 
 
