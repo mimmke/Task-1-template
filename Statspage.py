@@ -6,7 +6,7 @@ if "final_score" not in st.session_state:
     st.session_state.final_score=[0,0,0,0,0,0]
 
 #configering the page and giving it a header with its title    
-st.set_page_config(page_title= "Statspage")
+st.set_page_config(page_title= "Statspage",page_icon="📊")
 st.header("Your Game Statistics", text_alignment="center")
 
 st.space(size="medium")
