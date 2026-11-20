@@ -59,7 +59,7 @@ def new_movie_to_guess():
 #create our first movie
 movie= movies.loc[st.session_state.current_movie,"Movies"]
 emoji= movies.loc[st.session_state.current_movie,"Emojis"]
-if st.session_state.prev_mov == []:
+if st.session_state.prev_mov == []:  # this is only for the very first movie, the others will be added through the function beforehand
     st.session_state.prev_mov.append(movie)
 emoji_space=st.empty()# set up a space to display our emojis in (to make sure it is in the correct position even if we reassign emojis later in the code)
 
@@ -81,9 +81,9 @@ with st.form("Guess",clear_on_submit=True):# create the form where the user can 
                     current_emojis=emoji
                 if st.session_state.attempts<2:# depending on how many guesses  the user uses, the model later provides more detailed hints
                     hint_status=0
-                elif st.session_state.attempts==2:
+                elif st.session_state.attempts==2: # the model will provide a hint for the genre of the movie to be guessed
                     hint_status=1
-                else:
+                else: # for the last guess the model will give a hint regarding an important character
                     hint_status=2
                 try:# try sending the message to the model
                     with st.spinner("Your guess is being evaluated..."):
@@ -95,7 +95,7 @@ with st.form("Guess",clear_on_submit=True):# create the form where the user can 
                             ]
                         )
                     ##st.write(repr(response.choices[0].message.content))
-                    result=None
+                    result=None #this is to make the try except block possible
                     try: #the model is supposed to return a JSON dictionary. Sometimes this does not work, which is why we have the try except
                         result=json.loads(response.choices[0].message.content.strip()) 
                         ##st.write(result)
@@ -138,14 +138,14 @@ with st.form("Guess",clear_on_submit=True):# create the form where the user can 
              
         else: # in case the user submitted without typing anything in
             st.write("Please guess a movie") 
-#get the current movie and emojis using the session state index
+#get the current movie and emojis using the session state index, depending on how the state changed through user behaviour
 movie= movies.loc[st.session_state.current_movie,"Movies"]
 emoji= movies.loc[st.session_state.current_movie,"Emojis"]
 ##st.write(f"Emojis: {emoji}")
 ##st.write(f"Movie: {movie}")
 ##st.write(f"Previous movies: {st.session_state.prev_mov}")
 
-#if the user guessed less then 3 times, show as many emojis for the movie as attempts
+#if the user guessed less then 2 times, show as many emojis for the movie as attempts
 if st.session_state.attempts <2:
     emoji_space.markdown(
         f"<span style='font-size: 100px;'>{emoji[:st.session_state.attempts+1]}</span>",
