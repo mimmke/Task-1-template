@@ -37,24 +37,39 @@ if "attempts" not in st.session_state:
 if "final_score" not in st.session_state:
     st.session_state.final_score=[0,0,0,0,0,0]
 if "current_movie" not in st.session_state:
-    st.session_state.current_movie=random.randint(1,30)
-if "trial_and_error" not in st.session_state:
-    st.session_state["trial_and_error"]=random.randint(1,10)
+    st.session_state.current_movie=random.randint(1,99)
+if "prev_mov" not in st.session_state:
+    st.session_state.prev_mov=[]
+
+# write a function to find new random movie later on
+def new_movie_to_guess():
+    while True:
+            st.session_state.current_movie=random.randint(1,99)
+            movie= movies.loc[st.session_state.current_movie,"Movies"]
+            if len(st.session_state.prev_mov)>80:
+                del st.session_state.prev_mov[:50]
+            if movie not in st.session_state.prev_mov:
+                break
+    st.session_state.prev_mov.append(movie) 
+    return st.session_state.current_movie
+
 movie= movies.loc[st.session_state.current_movie,"Movies"]
 emoji= movies.loc[st.session_state.current_movie,"Emojis"]
+if st.session_state.prev_mov == []:
+    st.session_state.prev_mov.append(movie)
 emoji_space=st.empty()
 
 
-system_prompt="""You are a witty gamemaster. Evaluate the user guess by comparing it to the movie to be guessed and the current emojis. Your answer must be a valid JSON object with different values. “Message” should contain a witty answer evaluating the user guess. If hint_status is 0, provide a short answer, if hint_status is 1 give a hint regarding the genre of the movie to be guessed and if hint_status is 2 provide a hint with one prominent movie character. NEVER give away the movie title or plot (if the prominent character's name is the same as the movie title, describe the character instead of naming them). “is_exact_match” should be true if the user guess refers to the exact movie to be guessed or the corresponding franchise ,otherwise false. Ignore spelling mistakes (e.g., "the avangers" for "The Avengers") and ignore missing subtitles or extra phrases after the main title (e.g., "E.T." for "E.T. the Extra-Terrestrial"). “increase_attempts” should be 0 if “is_exact_match” is true, otherwise 1. Output ONLY raw JSON. Do not include markdown formatting, backticks,new line, or any introductory text. Your response should look something like this: {"Message": "...", "increase_attempts": 1, "is_exact_match": false}"""
+system_prompt="""You are a witty gamemaster. Evaluate the user guess by comparing it to the movie to be guessed and the current emojis. Your answer must be a valid JSON object with different values. “Message” should contain a witty answer evaluating the user guess. If hint_status is 0, provide a short answer, if hint_status is 1 give a hint regarding the genre of the movie to be guessed in your answer and if hint_status is 2 provide a hint in your answer with one prominent movie character. NEVER give away the movie title or plot (if the prominent character's name is the same as the movie title, describe the character instead of naming them).Consider the current available emojis in your answer and see if the user guessed movie could also be described by them.If the user provides nonsense input, give a witty answer that they wasted a guess. “is_exact_match” should be true if the user guess refers to the exact movie to be guessed or the corresponding franchise ,otherwise false. Ignore spelling mistakes (e.g., "the avangers" for "The Avengers") and ignore missing subtitles or extra phrases after the main title (e.g., "E.T." for "E.T. the Extra-Terrestrial"). “increase_attempts” should be 0 if “is_exact_match” is true, otherwise 1. Output ONLY raw JSON. Do not include markdown formatting, backticks,new line, or any introductory text. Your response should look something like this: {"Message": "...", "increase_attempts": 1, "is_exact_match": false}"""
 with st.form("Guess",clear_on_submit=True):
     guess=st.text_input("What movie is this?")
     submitted = st.form_submit_button("Submit",type="primary")
     if submitted:
-        st.write(f"current attempts(if submitted): {st.session_state.attempts}")
+        ##st.write(f"current attempts(if submitted): {st.session_state.attempts}")
         
         if guess:
             #st.session_state.attempts+=1
-            st.write(f"current attempts(if guess): {st.session_state.attempts}")
+            ##st.write(f"current attempts(if guess): {st.session_state.attempts}")
             if st.session_state.attempts<5:
                 if st.session_state.attempts <2:
                     current_emojis=emoji[:st.session_state.attempts+1]
@@ -75,11 +90,11 @@ with st.form("Guess",clear_on_submit=True):
                                 {"role":"user","content":f"movie to be guessed: {movie} user guess: {guess} current emojis:{current_emojis} hint status: {hint_status}  " }
                             ]
                         )
-                    st.write(repr(response.choices[0].message.content))
+                    ##st.write(repr(response.choices[0].message.content))
                     result=None
                     try:
                         result=json.loads(response.choices[0].message.content.strip())
-                        st.write(result)
+                        ##st.write(result)
                     except json.JSONDecodeError:
                         st.error("The model has not given an accurate answer. Please retry submitting your guess")
                     if result != None:
@@ -88,17 +103,18 @@ with st.form("Guess",clear_on_submit=True):
                             st.snow()
                             st.write(result["Message"])
                             st.session_state.final_score[st.session_state.attempts]+=1
-                            st.write(st.session_state.final_score)
+                            #st.write(st.session_state.final_score)
                             st.session_state.attempts=0
-                            st.session_state.current_movie=random.randint(1,30)
+                            st.session_state.current_movie=new_movie_to_guess()
                         else:
                             st.session_state.attempts=st.session_state.attempts+result["increase_attempts"]
                             if st.session_state.attempts==5:
-                                st.error("I´m sorry, you have run out of guesses") 
+                                st.error("I'm sorry, you have run out of guesses") 
+                                st.write(f"The movie described by the emojis {emoji} was {movie}!")
                                 st.session_state.final_score[5]+=1
-                                st.write(st.session_state.final_score)
+                                #st.write(st.session_state.final_score)
                                 st.session_state.attempts=0
-                                st.session_state.current_movie=random.randint(1,30) 
+                                st.session_state.current_movie=new_movie_to_guess()
                             else:
                                 st.error(f"This is not correct. Guess again! You have {5-st.session_state.attempts} attempts left")
                                 st.write(result["Message"])
@@ -109,19 +125,21 @@ with st.form("Guess",clear_on_submit=True):
                     st.error("API AI request has failed, please checkt it and try again!")
                 
             else:
-                st.error("I´m sorry, you have run out of guesses") 
+                st.error("I'm sorry, you have run out of guesses") 
+                st.write(f"The movie described by the emojis {emoji} was {movie}!")
                 st.session_state.final_score[5]+=1
-                st.write(st.session_state.final_score)
+                ##st.write(st.session_state.final_score)
                 st.session_state.attempts=0
-                st.session_state.current_movie=random.randint(1,30)
+                st.session_state.current_movie=new_movie_to_guess()
              
         else:
             st.write("Please guess a movie")
 movie= movies.loc[st.session_state.current_movie,"Movies"]
 emoji= movies.loc[st.session_state.current_movie,"Emojis"]
-st.write(f"Emojis: {emoji}")
-st.write(f"Movie: {movie}")
-st.write(f"length emoji?{len(emoji)}")
+##st.write(f"Emojis: {emoji}")
+##st.write(f"Movie: {movie}")
+##st.write(f"Previous movies: {st.session_state.prev_mov}")
+
 if st.session_state.attempts <2:
     emoji_space.markdown(
         f"<span style='font-size: 100px;'>{emoji[:st.session_state.attempts+1]}</span>",
