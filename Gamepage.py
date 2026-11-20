@@ -6,6 +6,7 @@ from openai import OpenAI, AuthenticationError, OpenAIError
 import json
 st.set_page_config(page_title= "Gamepage",page_icon="🎲")
 
+#if no ai key was given, get a new one, normally one should be given on the homepage
 if "user_key" not in st.session_state:
     with st.sidebar:
         gamepage_api_key=st.text_input(
@@ -20,11 +21,13 @@ if "user_key" not in st.session_state:
     else:
         st.session_state.user_key=gamepage_api_key
 
+#initialize a new client with the user key
 client = OpenAI(
     base_url="https://litellm.uni-osnabrueck.de/v1",
     api_key=st.session_state.user_key,
 )
 
+#load our movie data set and save it under movies
 @st.cache_data
 def load_movie_data():
     return pd.read_csv("assets/Movies_to_Emojis.csv")
@@ -60,7 +63,7 @@ if st.session_state.prev_mov == []:
 emoji_space=st.empty()
 
 
-system_prompt="""You are a witty gamemaster. Evaluate the user guess by comparing it to the movie to be guessed and the current emojis. Your answer must be a valid JSON object with different values. “Message” should contain a witty answer evaluating the user guess. If hint_status is 0, provide a short answer, if hint_status is 1 give a hint regarding the genre of the movie to be guessed in your answer and if hint_status is 2 provide a hint in your answer with one prominent movie character. NEVER give away the movie title or plot (if the prominent character's name is the same as the movie title, describe the character instead of naming them).Consider the current available emojis in your answer and see if the user guessed movie could also be described by them.If the user provides nonsense input, give a witty answer that they wasted a guess. “is_exact_match” should be true if the user guess refers to the exact movie to be guessed or the corresponding franchise ,otherwise false. Ignore spelling mistakes (e.g., "the avangers" for "The Avengers") and ignore missing subtitles or extra phrases after the main title (e.g., "E.T." for "E.T. the Extra-Terrestrial"). “increase_attempts” should be 0 if “is_exact_match” is true, otherwise 1. Output ONLY raw JSON. Do not include markdown formatting, backticks,new line, or any introductory text. Your response should look something like this: {"Message": "...", "increase_attempts": 1, "is_exact_match": false}"""
+system_prompt="""You are a witty gamemaster. Evaluate the user guess by comparing it to the movie to be guessed and the current emojis. Your answer must be a valid JSON object with different values. “Message” should contain a witty answer evaluating the user guess. If hint_status is 0, provide a short answer, if hint_status is 1 give a hint regarding the genre of the movie to be guessed in your answer and if hint_status is 2 provide a hint in your answer with one prominent movie character. NEVER give away the movie title or plot (if the prominent character's name is the same as the movie title, describe the character instead of naming them).Consider the current available emojis in your answer and see if the user guessed movie could also be described by them.If the user provides nonsense input, give a witty answer that they wasted a guess. If the user guessed correctly, provide a funny message congratulating the user. “is_exact_match” should be true if the user guess refers to the exact movie to be guessed or the corresponding franchise ,otherwise false. Ignore spelling mistakes (e.g., "the avangers" for "The Avengers") and ignore missing subtitles or extra phrases after the main title (e.g., "E.T." for "E.T. the Extra-Terrestrial"). “increase_attempts” should be 0 if “is_exact_match” is true, otherwise 1. Output ONLY raw JSON. Do not include markdown formatting, backticks,new line, or any introductory text. Your response should look something like this: {"Message": "...", "increase_attempts": 1, "is_exact_match": false}"""
 with st.form("Guess",clear_on_submit=True):
     guess=st.text_input("What movie is this?")
     submitted = st.form_submit_button("Submit",type="primary")
