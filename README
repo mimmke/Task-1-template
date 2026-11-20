@@ -10,5 +10,3 @@ Game explanation:
     The statspage depicts a bar chart showing you how often it took a certain amount of guesses to guess the movie right. It will also assign you one of three ranks according to your average amount of guesses per movie. Additionally you will see some statistics about the amount of movies guessed correctly and how many movies you failed to guess, as well as your average amount of guesses per guessed movie.
 
 
-Problem we encountered and have not yet fixed:
-    We read the emojis as a string, and get them seperately over the index. Some emojis consist of more than one part, leading to problems when displaying them. During the game, the case might occur that only one emoji is displayed for two or more guesses and with the next guess all the other emojis appear. 

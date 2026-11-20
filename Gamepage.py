@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import random
-import time
+import regex
 from openai import OpenAI, AuthenticationError, OpenAIError
 import json
 st.set_page_config(page_title= "Gamepage",page_icon="🎲")
@@ -59,6 +59,7 @@ def new_movie_to_guess():
 #create our first movie
 movie= movies.loc[st.session_state.current_movie,"Movies"]
 emoji= movies.loc[st.session_state.current_movie,"Emojis"]
+emoji_list= regex.findall(r"\X", emoji) #to get a list of clearly separated emojis
 if st.session_state.prev_mov == []:  # this is only for the very first movie, the others will be added through the function beforehand
     st.session_state.prev_mov.append(movie)
 emoji_space=st.empty()# set up a space to display our emojis in (to make sure it is in the correct position even if we reassign emojis later in the code)
@@ -76,9 +77,9 @@ with st.form("Guess",clear_on_submit=True):# create the form where the user can 
             ##st.write(f"current attempts(if guess): {st.session_state.attempts}")
             if st.session_state.attempts<5:# the user has 5 attempts, otherwise the guess is invalid
                 if st.session_state.attempts <2: #the current emojis are used to be given to the model to analyze
-                    current_emojis=emoji[:st.session_state.attempts+1]
+                    current_emojis="".join(emoji_list[:st.session_state.attempts+1])
                 else:
-                    current_emojis=emoji
+                    current_emojis="".join(emoji_list)
                 if st.session_state.attempts<2:# depending on how many guesses  the user uses, the model later provides more detailed hints
                     hint_status=0
                 elif st.session_state.attempts==2: # the model will provide a hint for the genre of the movie to be guessed
@@ -141,6 +142,7 @@ with st.form("Guess",clear_on_submit=True):# create the form where the user can 
 #get the current movie and emojis using the session state index, depending on how the state changed through user behaviour
 movie= movies.loc[st.session_state.current_movie,"Movies"]
 emoji= movies.loc[st.session_state.current_movie,"Emojis"]
+emoji_list= regex.findall(r"\X", emoji)
 ##st.write(f"Emojis: {emoji}")
 ##st.write(f"Movie: {movie}")
 ##st.write(f"Previous movies: {st.session_state.prev_mov}")
@@ -148,11 +150,11 @@ emoji= movies.loc[st.session_state.current_movie,"Emojis"]
 #if the user guessed less then 2 times, show as many emojis for the movie as attempts
 if st.session_state.attempts <2:
     emoji_space.markdown(
-        f"<span style='font-size: 100px;'>{emoji[:st.session_state.attempts+1]}</span>",
+        f"<span style='font-size: 100px;'>{"".join(emoji_list[:st.session_state.attempts+1])}</span>",
     unsafe_allow_html=True,)
 else:# after 2 guesses all emojis will be displayed
      emoji_space.markdown(
-            f"<span style='font-size: 100px;'>{emoji}</span>",
+            f"<span style='font-size: 100px;'>{"".join(emoji_list)}</span>",
         unsafe_allow_html=True,)
 
 #button to switch to the statistics page
