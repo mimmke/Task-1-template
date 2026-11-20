@@ -70,11 +70,9 @@ with st.form("Guess",clear_on_submit=True):# create the form where the user can 
     guess=st.text_input("What movie is this?")
     submitted = st.form_submit_button("Submit",type="primary")
     if submitted:
-        ##st.write(f"current attempts(if submitted): {st.session_state.attempts}")
         
         if guess: #to check whether the user actuelly guessed something before submitting
-            #st.session_state.attempts+=1
-            ##st.write(f"current attempts(if guess): {st.session_state.attempts}")
+            
             if st.session_state.attempts<5:# the user has 5 attempts, otherwise the guess is invalid
                 if st.session_state.attempts <2: #the current emojis are used to be given to the model to analyze
                     current_emojis="".join(emoji_list[:st.session_state.attempts+1])
@@ -95,11 +93,9 @@ with st.form("Guess",clear_on_submit=True):# create the form where the user can 
                                 {"role":"user","content":f"movie to be guessed: {movie} user guess: {guess} current emojis:{current_emojis} hint status: {hint_status}  " } # the model is handed th euser guess and additional current info to create an answer
                             ]
                         )
-                    ##st.write(repr(response.choices[0].message.content))
                     result=None #this is to make the try except block possible
                     try: #the model is supposed to return a JSON dictionary. Sometimes this does not work, which is why we have the try except
                         result=json.loads(response.choices[0].message.content.strip()) 
-                        ##st.write(result)
                     except json.JSONDecodeError: #in case the model returns an unusable response
                         st.error("The model has not given an accurate answer. Please retry submitting your guess")
                     if result != None:# if the JSON load worked
@@ -108,7 +104,6 @@ with st.form("Guess",clear_on_submit=True):# create the form where the user can 
                             st.snow()
                             st.write(result["Message"])
                             st.session_state.final_score[st.session_state.attempts]+=1
-                            #st.write(st.session_state.final_score)
                             st.session_state.attempts=0
                             st.session_state.current_movie=new_movie_to_guess()
                         else:
@@ -117,7 +112,6 @@ with st.form("Guess",clear_on_submit=True):# create the form where the user can 
                                 st.error("I'm sorry, you have run out of guesses") 
                                 st.write(f"The movie described by the emojis {emoji} was {movie}!")
                                 st.session_state.final_score[5]+=1
-                                #st.write(st.session_state.final_score)
                                 st.session_state.attempts=0
                                 st.session_state.current_movie=new_movie_to_guess()
                             else:
@@ -133,7 +127,7 @@ with st.form("Guess",clear_on_submit=True):# create the form where the user can 
                 st.error("I'm sorry, you have run out of guesses") 
                 st.write(f"The movie described by the emojis {emoji} was {movie}!")
                 st.session_state.final_score[5]+=1
-                ##st.write(st.session_state.final_score)
+               
                 st.session_state.attempts=0
                 st.session_state.current_movie=new_movie_to_guess()
              
@@ -143,9 +137,7 @@ with st.form("Guess",clear_on_submit=True):# create the form where the user can 
 movie= movies.loc[st.session_state.current_movie,"Movies"]
 emoji= movies.loc[st.session_state.current_movie,"Emojis"]
 emoji_list= regex.findall(r"\X", emoji)
-##st.write(f"Emojis: {emoji}")
-##st.write(f"Movie: {movie}")
-##st.write(f"Previous movies: {st.session_state.prev_mov}")
+
 
 #if the user guessed less then 2 times, show as many emojis for the movie as attempts
 if st.session_state.attempts <2:
